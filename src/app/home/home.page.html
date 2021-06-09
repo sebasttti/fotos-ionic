@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      App de fotos de UD
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">App de fotos de UD</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <div class="w-100 flex allCenter mt-20">
+      <ion-icon name="camera" (click)="tomarFoto()"></ion-icon>
+    </div>
+
+    <div class="mt-20 w-100 contenedor-fotos" *ngIf="imagenesPorEnviar">
+      <h3>Fotos listas para enviarse</h3>
+      <div class="carrusel flex">
+        <img
+          *ngFor="let imagen of imagenesPorEnviar,let ind=index"
+          src="data:image/jpeg;base64,{{imagen}}"
+          alt="img-env-{{IND}}"
+          (click)="seleccionarImagen('data:image/jpeg;base64,'+imagen)"
+        />
+      </div>
+    </div>
+
+    <div class="mt-20 w-100 contenedor-fotos" *ngIf="imagenesServidor.length > 0">
+      <h3>Fotos del servidor</h3>
+      <div class="carrusel flex">
+        <img
+          *ngFor="let imagen of imagenesServidor,let ind=index"
+          src="{{imagen}}"
+          alt="img-serv-{{ind}}"
+          (click)="seleccionarImagen(imagen)"
+        />
+       
+      </div>
+    </div>
+
+    <div class="mt-20 w-100 imagen-seleccionada" *ngIf="imagenSeleccionadaSrc">
+      <h3>Imagen seleccionada</h3>
+      <div class="flex allCenter">
+        <img src="{{imagenSeleccionadaSrc}}" alt="img-serv-1" />
+      </div>
+    </div>
+  </div>
+
+  <div class="w-100 flex allCenter mt-20">
+    <ion-button color="primary" (click)="subirImagenesServidor()">Enviar fotos</ion-button>
+  </div>
+</ion-content>
